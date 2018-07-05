@@ -15,11 +15,18 @@ private:
 	int len;
 
 public:
-	String();
-	~String();
+	String():len(0){
+		for(int i =0;i<MAX_STRING_LEN;i++)
+			str[i] = '\0';
+	}	
+	~String(){};
 
-	int length();
-	void push_back(char c);
+	int length(){
+		return len;
+	}
+	void push_back(char c){
+		str[len++] = c;
+	}
 	char* get_str(){
 		return str;
 	}
@@ -36,30 +43,28 @@ public:
     void operator = (char arr[] ) { 
     	for(int i = 0; i < MAX_STRING_LEN;i++)
     		str[i] = arr[i];
-    } 
+    }
+
+	void operator + (String &S ) {
+		int l = S.length();
+		char* t = S.get_str();
+    	for(int i = 0; i < l;i++)
+    		str[len+i] = t[i];
+		len = len + l;
+	}
+      
+    void operator + (char arr[] ) { 
+		int l = 0;
+		
+		while(arr[l] != '\0'){
+			l++;	
+		}
+		
+    	for(int i = 0; i < l;i++)
+    		str[len+i] = arr[i];
+		len = len + l;
+    }	 
 };
-
-String::String()
-{
-	len = 0;
-	for(int i =0;i<MAX_STRING_LEN;i++)
-		str[i] = '\0';
-}
-
-String::~String()
-{
-
-}
-
-int String::length()
-{
-	return 0;
-}
-
-void String::push_back(char c)
-{
-	str[len++] = c;
-}
 
 ostream & operator << (ostream &out, const String &str)
 {
@@ -94,5 +99,4 @@ int main()
 	test2 = test1;
 	
 	std::cout << test1 << " " << test2 << endl;
-	
 }
