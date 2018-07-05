@@ -1,0 +1,2 @@
+# StringClass
+C++ String Library
